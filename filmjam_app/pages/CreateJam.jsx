@@ -44,6 +44,8 @@ const CreateJam = () => {
         <Input />
         <InputTitle>End Date</InputTitle>
         <Input />
+        <InputTitle>Tags</InputTitle>
+        <Input />
         <Button>Create</Button>
       </Wrapper>
     </Container>

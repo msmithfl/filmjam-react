@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import Jams from "../pages/Jams";
