@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+import jamRoutes from "./routes/jams.js";
 
 const app = express();
-
 dotenv.config();
 
 const connect = () => {
@@ -16,6 +17,31 @@ const connect = () => {
       throw err;
     });
 };
+
+//middleware
+app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
+
+//routes
+app.use("/api/jams", jamRoutes);
+
+//custom error handling
+app.use((err, req, res, next) => {
+  //defining status
+  const status = err.status || 500;
+  // if no default message, send custom message
+  const message = err.message || "Something went wrong!";
+
+  return res.status(status).json({
+    success: false,
+    status,
+    message,
+  });
+});
 
 app.listen(8800, () => {
   connect();

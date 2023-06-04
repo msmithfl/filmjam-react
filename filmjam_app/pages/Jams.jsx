@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import JamCard from "../components/JamCard";
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +20,16 @@ const TopText = styled.p``;
 const Button = styled.button``;
 
 const Jams = () => {
+  const [jams, setJams] = useState([]);
+
+  useEffect(() => {
+    const fetchJams = async () => {
+      const res = await axios.get("http://localhost:8800/api/jams");
+      setJams(res.data);
+    };
+    fetchJams();
+  }, []);
+
   return (
     <Container>
       <Wrapper>
@@ -31,7 +43,11 @@ const Jams = () => {
         >
           <Button>Create a jam!</Button>
         </Link>
-        <JamContainer>Jams</JamContainer>
+        <JamContainer>
+          {jams.map((jam) => (
+            <JamCard key={jam._id} jam={jam} />
+          ))}
+        </JamContainer>
       </Wrapper>
     </Container>
   );
