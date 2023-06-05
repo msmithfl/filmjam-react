@@ -1,16 +1,13 @@
-import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Home from "../pages/Home";
-import SignIn from "../pages/SignIn";
-import Jams from "../pages/Jams";
-import CreateJam from "../pages/CreateJam";
-
-const Container = styled.div``;
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Jams from "./pages/Jams";
+import SignIn from "./pages/SignIn";
+import CreateJam from "./pages/CreateJam";
 
 function App() {
   return (
-    <Container>
+    <div>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -23,7 +20,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Container>
+    </div>
   );
 }
 
