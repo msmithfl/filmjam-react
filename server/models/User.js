@@ -1,24 +1,23 @@
 import mongoose from "mongoose";
 
-const JamSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
-    userId: {
+    name: {
       type: String,
       required: true,
+      unique: true,
     },
-    title: {
+    email: {
       type: String,
       required: true,
+      unique: true,
     },
-    desc: {
+    password: {
       type: String,
-    },
-    tags: {
-      type: [String],
-      default: [],
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Jam", JamSchema);
+export default mongoose.model("User", UserSchema);

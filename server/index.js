@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import jamRoutes from "./routes/jams.js";
+import authRoutes from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
@@ -19,6 +21,7 @@ const connect = () => {
 };
 
 //middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
@@ -28,6 +31,7 @@ app.use(
 
 //routes
 app.use("/api/jams", jamRoutes);
+app.use("/api/auth", authRoutes);
 
 //custom error handling
 app.use((err, req, res, next) => {

@@ -18,6 +18,7 @@ const CreateJam = () => {
       alert("Jam Created!");
     } catch (err) {
       console.error(err);
+      alert(err);
     }
   };
 
