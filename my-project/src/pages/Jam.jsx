@@ -7,7 +7,6 @@ import { useGetUserID } from "../hooks/useGetUserInfo";
 const Jam = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
   const [jam, setJam] = useState({});
-  const [channel, setChannel] = useState({});
 
   const path = useLocation().pathname.split("/")[2];
   const userId = useGetUserID();
@@ -39,25 +38,29 @@ const Jam = () => {
   };
 
   return (
-    <div>
-      <h1>{jam.title}</h1>
-      <p>{jam.desc}</p>
-      {!cookies.access_token ? (
-        <Link to="/signin">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-            Sign in to enter
-          </button>
-        </Link>
-      ) : (
-        <div className="">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-            onClick={handleJamEnter}
-          >
-            Enter Jam
-          </button>
-        </div>
-      )}
+    <div className="flex flex-col items-center">
+      <div>
+        <h1 className="font-bold text-2xl">{jam.title}</h1>
+        <p>{jam.desc}</p>
+      </div>
+      <div>
+        {!cookies.access_token ? (
+          <Link to="/signin">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+              Sign in to enter
+            </button>
+          </Link>
+        ) : (
+          <div className="">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
+              onClick={handleJamEnter}
+            >
+              Enter Jam
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

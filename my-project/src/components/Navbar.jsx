@@ -43,7 +43,9 @@ const Navbar = () => {
         </Link>
       ) : (
         <div className="flex items-center gap-4">
-          <div>Hello, {username}</div>
+          <Link to="/dashboard">
+            <div className="hover:underline">Hello, {username}</div>
+          </Link>
           <div
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
             onClick={logout}

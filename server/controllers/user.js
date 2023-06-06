@@ -1,3 +1,4 @@
+import Jam from "../models/Jam.js";
 import User from "../models/User.js";
 
 export const getUser = async (req, res, next) => {
@@ -47,6 +48,25 @@ export const leaveJam = async (req, res, next) => {
   } catch (err) {
     // Handle the error appropriately
     console.log(err);
+    next(err);
+  }
+};
+
+export const getJamsForUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id; // Assuming you have the userId available
+    const user = await User.findById(userId); // Retrieve the user document
+
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+
+    const jamIds = user.enteredJams; // Assuming the array of jamIds is stored in enteredJams field of the user document
+
+    const jams = await Jam.find({ _id: { $in: jamIds } }); // Find the jams where the ID is present in the user's jamIds array
+
+    res.status(200).json(jams);
+  } catch (err) {
     next(err);
   }
 };
