@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useGetUserID } from "../hooks/useGetUserInfo";
 
 const CreateJam = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
+
+  const userId = useGetUserID();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,6 +16,7 @@ const CreateJam = () => {
       await axios.post(`http://localhost:8800/api/jams`, {
         title,
         desc,
+        userId,
       });
 
       alert("Jam Created!");

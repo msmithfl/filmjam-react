@@ -29,17 +29,15 @@ const Login = () => {
         password,
       });
 
-      console.log(res.data);
-
-      //setting
+      //setting cookie
       setCookies("access_token", res.data.token);
-
+      //setting local variables
       window.localStorage.setItem("userID", res.data.others._id);
       window.localStorage.setItem("name", res.data.others.name);
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -77,17 +75,14 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/signup", {
+      await axios.post("http://localhost:8800/api/auth/signup", {
         name,
         email,
         password,
       });
-      console.log(res);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
-
-    console.log(name, email, password);
   };
 
   return (

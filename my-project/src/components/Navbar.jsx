@@ -27,7 +27,7 @@ const Navbar = () => {
           <div className="font-bold">filmjam.io</div>
         </div>
       </Link>
-      <div className="flex gap-4 mr-10">
+      <div className="flex gap-4">
         <Link to="/">
           <div className="font-bold text-md">Home</div>
         </Link>

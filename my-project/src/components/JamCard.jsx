@@ -2,7 +2,7 @@ import React from "react";
 
 const JamCard = ({ jam }) => {
   return (
-    <div className="flex p-3 m-2 border gap-5 items-center">
+    <div className="flex p-3 m-2 border gap-5 w-72 h-40">
       <div>
         <img
           className="w-28"

@@ -4,7 +4,7 @@ import { verifyToken } from "../verifyToken.js";
 
 const router = express.Router();
 
-router.post("/", verifyToken, addJam);
+router.post("/", addJam);
 router.get("/", getJams);
 
 export default router;

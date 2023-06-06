@@ -27,7 +27,7 @@ const Jams = () => {
           </div>
         </Link>
       </div>
-      <div className="m-10">
+      <div className="flex m-10 flex-wrap justify-center">
         {jams.map((jam) => (
           <JamCard key={jam._id} jam={jam} />
         ))}
