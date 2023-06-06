@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Link, useLocation } from "react-router-dom";
+import { useGetUserID } from "../hooks/useGetUserInfo";
 
 const Jam = () => {
-  const path = useLocation().pathname.split("/")[2];
-
+  const [cookies, setCookies] = useCookies(["access_token"]);
   const [jam, setJam] = useState({});
   const [channel, setChannel] = useState({});
+
+  const path = useLocation().pathname.split("/")[2];
+  const userId = useGetUserID();
 
   useEffect(() => {
     const fetchJamData = async () => {
@@ -15,7 +19,6 @@ const Jam = () => {
           `http://localhost:8800/api/jams/find/${path}`
         );
         setJam(jamRes.data);
-        console.log(jamRes.data);
       } catch (error) {
         console.log(error);
       }
@@ -24,10 +27,37 @@ const Jam = () => {
     fetchJamData();
   }, [path]);
 
+  const handleJamEnter = async () => {
+    try {
+      await axios.put(`http://localhost:8800/api/users/enterJam/${path}`, {
+        userId,
+      });
+      alert("Jam Entered!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1>{jam.title}</h1>
       <p>{jam.desc}</p>
+      {!cookies.access_token ? (
+        <Link to="/signin">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+            Sign in to enter
+          </button>
+        </Link>
+      ) : (
+        <div className="">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+            onClick={handleJamEnter}
+          >
+            Enter Jam
+          </button>
+        </div>
+      )}
     </div>
   );
 };

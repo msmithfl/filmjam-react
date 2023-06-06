@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import jamRoutes from "./routes/jams.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(
 //routes
 app.use("/api/jams", jamRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 //custom error handling
 app.use((err, req, res, next) => {
