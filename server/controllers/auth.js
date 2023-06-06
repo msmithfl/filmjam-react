@@ -33,13 +33,18 @@ export const signin = async (req, res, next) => {
     //creating a hash token out of the user._id
     const token = jwt.sign({ id: user._id }, process.env.JWT);
 
+    res.json({
+      token,
+      others,
+    });
+
     //securely sending token to user
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json(others);
+    // res
+    //   .cookie("access_token", token, {
+    //     httpOnly: true,
+    //   })
+    //   .status(200)
+    //   .json(others);
   } catch (err) {
     next(err);
   }
