@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useGetUserID } from "../hooks/useGetUserInfo";
+import { useCookies } from "react-cookie";
 
 const CreateJam = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
+  const [cookies, setCookies] = useCookies(["access_token"]);
 
   const userId = useGetUserID();
 
@@ -17,8 +19,9 @@ const CreateJam = () => {
         title,
         desc,
         userId,
+        cookies,
       });
-
+      console.log(cookies);
       alert("Jam Created!");
     } catch (err) {
       console.error(err);

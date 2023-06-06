@@ -35,7 +35,7 @@ const Login = () => {
       window.localStorage.setItem("userID", res.data.others._id);
       window.localStorage.setItem("name", res.data.others.name);
 
-      navigate("/");
+      navigate("/jams");
     } catch (error) {
       alert(error);
     }
@@ -71,15 +71,33 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [_, setCookies] = useCookies(["access_token"]);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      //register
       await axios.post("http://localhost:8800/api/auth/signup", {
         name,
         email,
         password,
       });
+      //login
+      const res = await axios.post("http://localhost:8800/api/auth/signin", {
+        name,
+        password,
+      });
+
+      //setting cookie
+      setCookies("access_token", res.data.token);
+      //setting local variables
+      window.localStorage.setItem("userID", res.data.others._id);
+      window.localStorage.setItem("name", res.data.others.name);
+
+      navigate("/jams");
     } catch (error) {
       alert(error);
     }

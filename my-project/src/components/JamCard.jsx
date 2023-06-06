@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const JamCard = ({ jam }) => {
   return (
@@ -10,7 +11,9 @@ const JamCard = ({ jam }) => {
         />
       </div>
       <div className="flex flex-col">
-        <h2 className="font-bold">{jam.title}</h2>
+        <Link to={`/jam/${jam._id}`}>
+          <h2 className="font-bold">{jam.title}</h2>
+        </Link>
         <p className=" text-gray-500 text-xs">{jam.desc}</p>
         <p className=" text-sm">
           Hosted by <span className=" underline">MattS</span>

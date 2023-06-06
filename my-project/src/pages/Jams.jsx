@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import JamCard from "../components/JamCard";
+import { useCookies } from "react-cookie";
 
 const Jams = () => {
   const [jams, setJams] = useState([]);
+  const [cookies, setCookies] = useCookies(["access_token"]);
 
   useEffect(() => {
     const fetchJams = async () => {
@@ -21,11 +23,19 @@ const Jams = () => {
           filmjam.io is a community space for users to create and participate in
           filmjams.
         </p>
-        <Link to="/jams/create">
-          <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-            Create a jam!
-          </div>
-        </Link>
+        {!cookies.access_token ? (
+          <Link to="/signin">
+            <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+              Login to Create!
+            </div>
+          </Link>
+        ) : (
+          <Link to="/jams/create">
+            <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+              Create a jam!
+            </div>
+          </Link>
+        )}
       </div>
       <div className="flex m-10 flex-wrap justify-center">
         {jams.map((jam) => (

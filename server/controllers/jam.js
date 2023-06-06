@@ -18,3 +18,12 @@ export const getJams = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getSingleJam = async (req, res, next) => {
+  try {
+    const jam = await Jam.findById(req.params.id);
+    res.status(200).json(jam);
+  } catch (err) {
+    next(err);
+  }
+};
