@@ -41,6 +41,7 @@ const Jam = () => {
     <div className="flex flex-col items-center">
       <div>
         <h1 className="font-bold text-2xl">{jam.title}</h1>
+        <h2></h2>
         <p>{jam.desc}</p>
       </div>
       <div>

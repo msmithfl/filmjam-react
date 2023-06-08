@@ -7,6 +7,7 @@ const Dashboard = () => {
   const userId = useGetUserID();
   const [user, setUser] = useState([]);
   const [enteredJams, setEnteredJams] = useState([]);
+  const [createdJams, setCreatedJams] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,14 +26,25 @@ const Dashboard = () => {
         const res = await axios.get(
           `http://localhost:8800/api/users/find/enteredJams/${userId}`
         );
-        console.log(res.data);
         setEnteredJams(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchCreatedJams = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8800/api/users/find/createdJams/${userId}`
+        );
+        setCreatedJams(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
     fetchEnteredJams();
+    fetchCreatedJams();
   }, []);
 
   return (
@@ -44,6 +56,14 @@ const Dashboard = () => {
         <h2 className="text-xl ml-20">Entered Jams</h2>
         <div className="flex mx-10 flex-wrap justify-center">
           {enteredJams.map((jam) => (
+            <JamCard key={jam._id} jam={jam} />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h2 className="text-xl ml-20">Created Jams</h2>
+        <div className="flex mx-10 flex-wrap justify-center">
+          {createdJams.map((jam) => (
             <JamCard key={jam._id} jam={jam} />
           ))}
         </div>

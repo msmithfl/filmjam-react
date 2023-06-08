@@ -1,33 +1,60 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useGetUserID } from "../hooks/useGetUserInfo";
+import React, { useEffect, useState } from "react";
+import { useGetUserID, useGetUserName } from "../hooks/useGetUserInfo";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const CreateJam = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
   const [cookies, setCookies] = useCookies(["access_token"]);
+  const [jam, setJam] = useState("");
 
   const userId = useGetUserID();
+  const userName = useGetUserName();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post(`http://localhost:8800/api/jams`, {
+      const res = await axios.post(`http://localhost:8800/api/jams`, {
         title,
         desc,
         userId,
-        cookies,
+        userName,
       });
-      console.log(cookies);
-      alert("Jam Created!");
+      setJam(res.data);
+
+      //navigate(`/jam/${res.data._id}`);
+      console.log("Jam Created!");
     } catch (err) {
       console.error(err);
       alert(err);
     }
   };
+
+  useEffect(() => {
+    const saveCreatedJam = async () => {
+      try {
+        if (jam && jam._id) {
+          // Check if jam and jam._id are defined
+          await axios.put(
+            `http://localhost:8800/api/users/createJam/${jam._id}`,
+            {
+              userId,
+            }
+          );
+          navigate(`/jam/${jam._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    saveCreatedJam();
+  }, [jam]);
 
   return (
     <div className="flex justify-center">

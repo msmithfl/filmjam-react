@@ -18,7 +18,7 @@ const Jams = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center mb-10">
         <p>
           filmjam.io is a community space for users to create and participate in
           filmjams.
@@ -37,7 +37,7 @@ const Jams = () => {
           </Link>
         )}
       </div>
-      <div className="flex m-10 flex-wrap justify-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center">
         {jams.map((jam) => (
           <JamCard key={jam._id} jam={jam} />
         ))}

@@ -47,11 +47,13 @@ const Login = () => {
         <h1 className="font-bold text-lg text-center">Login</h1>
         <h2>Username</h2>
         <input
+          type="text"
           className="border focus:outline-none p-1 px-2"
           onChange={(e) => setName(e.target.value)}
         />
         <h2>Password</h2>
         <input
+          type="password"
           className="border focus:outline-none p-1 px-2"
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -109,16 +111,19 @@ const Register = () => {
         <h1 className="font-bold text-lg text-center">Register</h1>
         <h2>Username</h2>
         <input
+          type="text"
           className="border focus:outline-none p-1 px-2"
           onChange={(e) => setName(e.target.value)}
         />
         <h2>Email</h2>
         <input
+          type="text"
           className="border focus:outline-none p-1 px-2"
           onChange={(e) => setEmail(e.target.value)}
         />
         <h2>Password</h2>
         <input
+          type="password"
           className="border focus:outline-none p-1 px-2"
           onChange={(e) => setPassword(e.target.value)}
         />

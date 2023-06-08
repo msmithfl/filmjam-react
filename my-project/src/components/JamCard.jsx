@@ -1,7 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const JamCard = ({ jam }) => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const res = await axios.get(
+        `http://localhost:8800/api/users/find/${jam.userId}`
+      );
+      setUser(res.data);
+    };
+    fetchUsername();
+  }, []);
+
   return (
     <div className="flex p-3 m-2 border gap-5 w-72 h-40">
       <div>
@@ -16,7 +29,7 @@ const JamCard = ({ jam }) => {
         </Link>
         <p className=" text-gray-500 text-xs">{jam.desc}</p>
         <p className=" text-sm">
-          Hosted by <span className=" underline">MattS</span>
+          Hosted by <span className=" underline">{jam.userName}</span>
         </p>
       </div>
     </div>
