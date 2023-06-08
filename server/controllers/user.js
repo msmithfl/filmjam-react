@@ -18,6 +18,10 @@ export const saveEnteredJam = async (req, res, next) => {
       $addToSet: { enteredJams: jamId },
     });
 
+    await Jam.findByIdAndUpdate(jamId, {
+      $addToSet: { usersJoined: userId },
+    });
+
     if (!updatedUser) {
       // User with the provided userId not found
       return res.status(404).json("User not found");

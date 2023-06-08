@@ -28,10 +28,17 @@ const Jam = () => {
 
   const handleJamEnter = async () => {
     try {
-      await axios.put(`http://localhost:8800/api/users/enterJam/${path}`, {
-        userId,
-      });
-      alert("Jam Entered!");
+      const res = await axios.put(
+        `http://localhost:8800/api/users/enterJam/${path}`,
+        {
+          userId,
+          jam,
+        }
+      );
+      console.log(res.data);
+      alert(res.data);
+      //refresh page
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -41,8 +48,11 @@ const Jam = () => {
     <div className="flex flex-col items-center">
       <div>
         <h1 className="font-bold text-2xl">{jam.title}</h1>
-        <h2></h2>
+        <h2>
+          Hosted by <span className=" underline">{jam.userName}</span>
+        </h2>
         <p>{jam.desc}</p>
+        <p>{jam.usersJoined ? jam.usersJoined.length : 0}</p>
       </div>
       <div>
         {!cookies.access_token ? (

@@ -21,6 +21,10 @@ const JamSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    usersJoined: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );
