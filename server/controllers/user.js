@@ -1,6 +1,8 @@
 import Jam from "../models/Jam.js";
 import User from "../models/User.js";
 
+//returns User Info
+//gets id from url params and finds the user
 export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);

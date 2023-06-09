@@ -7,6 +7,7 @@ import { useGetUserID } from "../hooks/useGetUserInfo";
 const Jam = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
   const [jam, setJam] = useState({});
+  const [isUserCreator, setIsUserCreator] = useState(false);
 
   const path = useLocation().pathname.split("/")[2];
   const userId = useGetUserID();
@@ -18,6 +19,7 @@ const Jam = () => {
           `http://localhost:8800/api/jams/find/${path}`
         );
         setJam(jamRes.data);
+        setIsUserCreator(userId === jamRes.data.userId);
       } catch (error) {
         console.log(error);
       }
@@ -35,8 +37,6 @@ const Jam = () => {
           jam,
         }
       );
-      console.log(res.data);
-      alert(res.data);
       //refresh page
       window.location.reload();
     } catch (error) {
@@ -53,8 +53,6 @@ const Jam = () => {
           jam,
         }
       );
-      console.log(res.data);
-      alert(res.data);
       //refresh page
       window.location.reload();
     } catch (error) {
@@ -111,6 +109,13 @@ const Jam = () => {
                 </button>
               </div>
             )}
+          </div>
+        )}
+        {isUserCreator && (
+          <div className="">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer">
+              Edit Jam
+            </button>
           </div>
         )}
       </div>

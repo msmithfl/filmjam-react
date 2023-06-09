@@ -20,12 +20,20 @@ const CreateJam = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`http://localhost:8800/api/jams`, {
-        title,
-        desc,
-        userId,
-        userName,
-      });
+      const res = await axios.post(
+        `http://localhost:8800/api/jams`,
+        {
+          title,
+          desc,
+          userId,
+          userName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        }
+      );
       setJam(res.data);
 
       //navigate(`/jam/${res.data._id}`);
