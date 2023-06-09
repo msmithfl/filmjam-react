@@ -17,9 +17,6 @@ const Jam = () => {
         const jamRes = await axios.get(
           `http://localhost:8800/api/jams/find/${path}`
         );
-        console.log(jamRes.data);
-        const isUserEntered = jamRes.data.usersJoined.includes(userId);
-        console.log(isUserEntered);
         setJam(jamRes.data);
       } catch (error) {
         console.log(error);
@@ -48,7 +45,25 @@ const Jam = () => {
   };
 
   const handleJamLeave = async () => {
-    console.log("Leaving Jam!");
+    try {
+      const res = await axios.put(
+        `http://localhost:8800/api/users/leaveJam/${path}`,
+        {
+          userId,
+          jam,
+        }
+      );
+      console.log(res.data);
+      alert(res.data);
+      //refresh page
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUploadVideo = async () => {
+    alert("Upload Modal Popup");
   };
 
   return (
@@ -78,6 +93,12 @@ const Jam = () => {
                   onClick={handleJamLeave}
                 >
                   Leave Jam
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
+                  onClick={handleUploadVideo}
+                >
+                  Upload Video
                 </button>
               </div>
             ) : (

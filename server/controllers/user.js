@@ -43,6 +43,10 @@ export const leaveJam = async (req, res, next) => {
       $pull: { enteredJams: jamId },
     });
 
+    await Jam.findByIdAndUpdate(jamId, {
+      $pull: { usersJoined: userId },
+    });
+
     if (!updatedUser) {
       // User with the provided userId not found
       return res.status(404).json("User not found");
