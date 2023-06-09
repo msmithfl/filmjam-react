@@ -17,6 +17,9 @@ const Jam = () => {
         const jamRes = await axios.get(
           `http://localhost:8800/api/jams/find/${path}`
         );
+        console.log(jamRes.data);
+        const isUserEntered = jamRes.data.usersJoined.includes(userId);
+        console.log(isUserEntered);
         setJam(jamRes.data);
       } catch (error) {
         console.log(error);
@@ -44,6 +47,10 @@ const Jam = () => {
     }
   };
 
+  const handleJamLeave = async () => {
+    console.log("Leaving Jam!");
+  };
+
   return (
     <div className="flex flex-col items-center">
       <div>
@@ -52,23 +59,37 @@ const Jam = () => {
           Hosted by <span className=" underline">{jam.userName}</span>
         </h2>
         <p>{jam.desc}</p>
-        <p>{jam.usersJoined ? jam.usersJoined.length : 0}</p>
+        <p>{jam.usersJoined ? jam.usersJoined.length : 0} Joined</p>
       </div>
       <div>
-        {!cookies.access_token ? (
+        {!cookies.access_token && (
           <Link to="/signin">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
               Sign in to enter
             </button>
           </Link>
-        ) : (
-          <div className="">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
-              onClick={handleJamEnter}
-            >
-              Enter Jam
-            </button>
+        )}
+        {cookies.access_token && (
+          <div>
+            {jam.usersJoined && jam.usersJoined.includes(userId) ? (
+              <div className="">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
+                  onClick={handleJamLeave}
+                >
+                  Leave Jam
+                </button>
+              </div>
+            ) : (
+              <div className="">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
+                  onClick={handleJamEnter}
+                >
+                  Enter Jam
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -32,6 +32,9 @@ const JamCard = ({ jam }) => {
           Hosted by <span className=" underline">{jam.userName}</span>
         </p>
       </div>
+      <div>
+        <p>{jam.usersJoined ? jam.usersJoined.length : 0}</p>
+      </div>
     </div>
   );
 };
