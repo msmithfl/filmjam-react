@@ -13,16 +13,16 @@ const Dashboard = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8800/api/users/find/${userId}`
-        );
-        setUser(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await axios.get(
+    //       `http://localhost:8800/api/users/find/${userId}`
+    //     );
+    //     setUser(res.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
     const fetchEnteredJams = async () => {
       try {

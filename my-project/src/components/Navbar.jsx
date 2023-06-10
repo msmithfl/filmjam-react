@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const logout = () => {
     // reset cookie
-    setCookies("access_token", "");
+    setCookies("access_token", "", { expires: new Date(0) });
     // clear local storage of userID
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("name");
