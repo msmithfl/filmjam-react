@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import CreateJam from "./pages/CreateJam";
 import Jam from "./pages/Jam";
 import Dashboard from "./pages/Dashboard";
+import JamEdit from "./pages/JamEdit";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             {/* final path: url.com/jam/2134123 */}
             <Route path="jam">
               <Route path=":id" element={<Jam />} />
+              <Route path=":id/edit" element={<JamEdit />} />
             </Route>
           </Route>
         </Routes>

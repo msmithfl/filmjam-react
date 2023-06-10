@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGetUserID } from "../hooks/useGetUserInfo";
 
 const Jam = () => {
@@ -11,6 +11,8 @@ const Jam = () => {
 
   const path = useLocation().pathname.split("/")[2];
   const userId = useGetUserID();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJamData = async () => {
@@ -30,11 +32,16 @@ const Jam = () => {
 
   const handleJamEnter = async () => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `http://localhost:8800/api/users/enterJam/${path}`,
         {
           userId,
           jam,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
         }
       );
       //refresh page
@@ -46,11 +53,16 @@ const Jam = () => {
 
   const handleJamLeave = async () => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `http://localhost:8800/api/users/leaveJam/${path}`,
         {
           userId,
           jam,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
         }
       );
       //refresh page
@@ -62,6 +74,10 @@ const Jam = () => {
 
   const handleUploadVideo = async () => {
     alert("Upload Modal Popup");
+  };
+
+  const handleEditButton = () => {
+    navigate(`/jam/${path}/edit`);
   };
 
   return (
@@ -113,7 +129,10 @@ const Jam = () => {
         )}
         {isUserCreator && (
           <div className="">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold m-4 py-2 px-4 rounded cursor-pointer"
+              onClick={handleEditButton}
+            >
               Edit Jam
             </button>
           </div>

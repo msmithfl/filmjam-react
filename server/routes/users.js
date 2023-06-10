@@ -12,9 +12,9 @@ import { verifyToken } from "../verifyToken.js";
 const router = express.Router();
 
 router.get("/find/:id", getUser);
-router.put("/enterJam/:jamId", saveEnteredJam);
-router.put("/createJam/:jamId", saveCreatedJam);
-router.put("/leaveJam/:jamId", leaveJam);
+router.put("/enterJam/:jamId", verifyToken, saveEnteredJam);
+router.put("/createJam/:jamId", verifyToken, saveCreatedJam);
+router.put("/leaveJam/:jamId", verifyToken, leaveJam);
 router.get("/find/enteredJams/:id", verifyToken, getJamsForUser);
 router.get("/find/createdJams/:id", verifyToken, getCreatedJamsForUser);
 

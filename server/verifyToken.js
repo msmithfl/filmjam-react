@@ -1,6 +1,19 @@
 import jwt from "jsonwebtoken";
 import { createError } from "./error.js";
 
+export const verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
 // export const verifyToken = (req, res, next) => {
 //   const token = req.cookies.access_token;
 //   console.log(token);
@@ -14,16 +27,3 @@ import { createError } from "./error.js";
 //     next();
 //   });
 // };
-
-export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (token == null) res.sendStatus(401);
-
-  jwt.verify(token, process.env.JWT, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};

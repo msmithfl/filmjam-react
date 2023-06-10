@@ -53,6 +53,11 @@ const CreateJam = () => {
             `http://localhost:8800/api/users/createJam/${jam._id}`,
             {
               userId,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${cookies.access_token}`,
+              },
             }
           );
           navigate(`/jam/${jam._id}`);
